@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,15 @@ class User extends Authenticatable
         'office_id',
         'password',
         'role'
+    ];
+    public $sortable = [
+        'login',
+        'name',
+        'surname',
+        'post_id',
+        'office_id',
+        'role',
+        'created_at'
     ];
 
     protected $hidden = [

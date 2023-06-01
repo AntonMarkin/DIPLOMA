@@ -9,16 +9,16 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Пользователь</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Статус</th>
-                        <th scope="col">Дата и время подачи</th>
+                        <th scope="col"><a href="{{ route('users-requests') }}">№</a></th>
+                        <th scope="col">@sortablelink('user_id', 'Логин')</th>
+                        <th scope="col">@sortablelink('name', 'Название')</th>
+                        <th scope="col">@sortablelink('status_id', 'Статус')</th>
+                        <th scope="col">@sortablelink('created_at', 'Дата подачи')</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($requests as $request)
-                        <tr onclick="showRequestInfo({{ $request->id }})" data-bs-toggle="tooltip"
+                        <tr onclick="showInfo('reqInfo' ,{{ $request->id }})" data-bs-toggle="tooltip"
                             data-bs-placement="left"
                             data-bs-custom-class="custom-tooltip" data-bs-title="Кликните, чтобы просмотреть">
                             <th scope="row">
@@ -37,13 +37,15 @@
                             </td>
                             <td>
                                 <div
-                                    class="d-flex align-items-center">{{ $request->created_at }}</div>
+                                    class="d-flex align-items-center">{{ $request->created_at->format('d.m.Y ') }}</div>
                             </td>
                         </tr>
-                        @include('request_info', ['i' => $request->id, 'statuses' => $statuses])
+                        @include('admin.infos.request_info', ['i' => $request->id])
                     @endforeach
                     </tbody>
                 </table>
+                {{ $requests->appends(\Request::except('page'))->render() }}
+
             </div>
         </div>
     </div>

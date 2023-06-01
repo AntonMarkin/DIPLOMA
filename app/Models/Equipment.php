@@ -7,16 +7,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Kyslik\ColumnSortable\Sortable;
 
 class Equipment extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
     protected $fillable = [
         'name',
         'equipment_type_id',
         'office_id',
         'description',
         'is_deleted'
+    ];
+    public $sortable = [
+        'name',
+        'equipment_type_id',
+        'office_id',
+        'is_deleted',
+        'created_at'
     ];
     /**
      * The "booted" method of the model.
@@ -27,7 +35,7 @@ class Equipment extends Model
     }
     public function type(): BelongsTo
     {
-        return $this->belongsTo(EquipmentType::class);
+        return $this->belongsTo(EquipmentType::class, 'equipment_type_id');
     }
     public function office(): BelongsTo
     {

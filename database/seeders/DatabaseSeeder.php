@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         ];
         $users = [
             [
-                'login' => 'admin',
+                'login' => 'vstpp_admin',
                 'name' => 'Максим',
                 'surname' => 'Васильев',
                 'patronymic' => 'Олегович',
